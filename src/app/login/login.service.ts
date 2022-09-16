@@ -9,6 +9,6 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(body: Object) {
-    this.http.post('http://localhost:3000/login', body).subscribe()
+    this.http.post('http://localhost:3000/auth/login', body).subscribe()
   }
 }
