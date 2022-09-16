@@ -1,0 +1,15 @@
+<form [formGroup]="loginForm">
+  Name: <input type="text" formControlName="name" />
+
+  <br />
+
+  Username : <input type="text" formControlName="userName" /> <br />
+  <br />
+
+  Password : <input type="password" formControlName="password" />
+
+  <br />
+  <button type="button" class="btn btn-primary" (click)="addUser()" > Create user </button>
+</form>
+
+

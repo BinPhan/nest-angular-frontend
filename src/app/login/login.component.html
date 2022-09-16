@@ -1,0 +1,11 @@
+<form [formGroup]="loginForm">
+  Username : <input type="text" formControlName="userName" /> <br />
+  <br />
+
+  Password : <input type="password" name="" id="" formControlName="password" />
+
+  <br />
+  <input class="btn btn-primary mr-2"  type="submit" value="Login" (click)="login()" />
+
+  <button class="btn btn-primary" [routerLink]="'/register'">Register</button>
+</form>
