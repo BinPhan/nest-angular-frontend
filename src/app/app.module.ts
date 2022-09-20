@@ -6,10 +6,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterService } from './register/register.service';
 import { UserListComponent } from './user-list/user-list.component';
 import { TooltipModule } from '@coreui/angular';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,11 @@ import { TooltipModule } from '@coreui/angular';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [RegisterService],
+  providers: [RegisterService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
