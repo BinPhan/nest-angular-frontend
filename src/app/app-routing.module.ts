@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
+import { LoginGuard } from './auth/login.guard';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserListComponent } from './user-list/user-list.component';
@@ -7,7 +8,7 @@ import { UserListComponent } from './user-list/user-list.component';
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'register',
@@ -15,7 +16,9 @@ const routes: Routes = [
   },
   {
     path: 'user-list',
-    component: UserListComponent
+    component: UserListComponent,
+    canActivate: [LoginGuard],
+    data: { roles: ["ADMIN"] }
   }
 ];
 

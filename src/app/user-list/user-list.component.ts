@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { UserListService } from './user-list.service';
 
 @Component({
@@ -14,9 +14,16 @@ export class UserListComponent implements OnInit {
   constructor(private userListService: UserListService) {
   }
 
-
   ngOnInit(): void {
     this.userListService.getListUser().subscribe((res: any) => this.users = res)
+  }
+
+  goToEdit(id: number) {
+
+  }
+
+  delete(id: number) {
+
   }
 
 }

@@ -11,6 +11,9 @@ import { RegisterService } from './register/register.service';
 import { UserListComponent } from './user-list/user-list.component';
 import { TooltipModule } from '@coreui/angular';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { LoginGuard } from './auth/login.guard';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     LoginComponent,
     RegisterComponent,
     UserListComponent,
+    UserEditComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,11 +31,15 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [RegisterService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
+  providers: [
+    RegisterService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    LoginGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
