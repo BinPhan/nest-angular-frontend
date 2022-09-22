@@ -1,0 +1,14 @@
+<div *ngFor="let item of cartItem" class="mt-4 ml-4">
+
+  <app-cart-item [item]="item" [cartItem]="cartItem" (updateItemEvent)="setItem($event)"
+    (updateQuantityEvent)="setQuantity($event)" class="row">
+
+  </app-cart-item>
+</div>
+
+<div>
+  <button class="btn" (click)="saveAll()">SAVE ALL</button>
+</div>
+<div>
+  Total amount of basket : {{totalBasket}}
+</div>
