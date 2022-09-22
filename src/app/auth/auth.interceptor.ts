@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { StoreService } from "../store.service";
+import { StoreService } from "../common/service/store.service";
 
 @Injectable()
 

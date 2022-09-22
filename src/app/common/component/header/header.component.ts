@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base-component';
-import { StoreService } from '../store.service';
+import { StoreService } from '../../service/store.service';
 
 @Component({
   selector: 'app-header',

@@ -1,4 +1,4 @@
-import { StoreService } from "./store.service";
+import { StoreService } from "../service/store.service";
 
 export class BaseComponent {
   protected isLoggedIn: Boolean

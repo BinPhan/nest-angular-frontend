@@ -13,7 +13,7 @@ import { TooltipModule } from '@coreui/angular';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { LoginGuard } from './auth/login.guard';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './common/component/header/header.component';
 
 @NgModule({
   declarations: [
