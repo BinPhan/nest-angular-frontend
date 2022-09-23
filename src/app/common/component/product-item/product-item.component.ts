@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { CartCountService } from '../../service/cart-count.service';
 
 @Component({
   selector: 'app-product-item',
@@ -9,7 +10,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ProductItemComponent implements OnInit {
 
   @Input() item: any
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cartCountService: CartCountService) { }
 
   ngOnInit(): void {
   }
@@ -22,6 +23,12 @@ export class ProductItemComponent implements OnInit {
       amount: item.price,
       product: item
     }
-    this.http.post('http://localhost:3000/baskets', body).subscribe()
+    this.http.post('http://localhost:3000/baskets', body).subscribe((res: any) => {
+      this.http.get('http://localhost:3000/baskets').subscribe((res: any) => {
+
+        this.cartCountService.changeCartCount(res.length)
+      })
+    })
+
   }
 }
