@@ -43,6 +43,7 @@ export class CartComponent implements OnInit {
     this.http.delete(`http://localhost:3000/baskets/${item.id}`).subscribe(res => {
       this.cartItem = this.cartItem.filter(arrItem => { return arrItem.id != item.id })
     })
+
   }
 
   saveAll() {

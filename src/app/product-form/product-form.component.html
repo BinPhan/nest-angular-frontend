@@ -1,0 +1,29 @@
+<div [formGroup]='product'>
+  <label for="">Title</label>
+  <input formControlName="title" type="text" name="" id="">
+  <div *ngIf="true"> Title is required! </div>
+
+  <br>
+  <label for="">Price</label>
+  <input formControlName="price" type="number" name="" id="">
+
+  <br>
+  <label for="">Image</label>
+  <input formControlName="image" type="file" name="" id="" (change)="changeImage($event)" />
+
+  <img [src]=" imagePreview" alt="" srcset="" height="200px">
+
+  <div *ngFor="let forms of product.controls.child.controls; let i = index">
+    <div [formGroup]="forms">
+
+      <input type="text" formControlName="name">
+    </div>
+
+  </div>
+
+
+
+  <button class="btn" (click)="addInput()"> + </button>
+
+  <button (click)="submit()"> Submit </button>
+</div>

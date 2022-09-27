@@ -18,6 +18,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductItemComponent } from './common/component/product-item/product-item.component';
 import { CartComponent } from './cart/cart.component';
 import { CartItemComponent } from './common/cart-item/cart-item.component';
+import { ProductFormComponent } from './product-form/product-form.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CartItemComponent } from './common/cart-item/cart-item.component';
     ProductItemComponent,
     CartComponent,
     CartItemComponent,
+    ProductFormComponent,
   ],
   imports: [
     BrowserModule,
