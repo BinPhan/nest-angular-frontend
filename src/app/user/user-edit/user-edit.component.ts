@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserEditComponent implements OnInit {
 
+  modalDisplay = false
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  closeModal() {
+    this.modalDisplay = false
+  }
 }

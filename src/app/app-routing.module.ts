@@ -6,7 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { RegisterComponent } from './register/register.component';
-import { UserListComponent } from './user-list/user-list.component';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
     component: UserListComponent,
     canActivate: [LoginGuard],
     data: { roles: ["ADMIN"] }
+  },
+  {
+    path: 'user',
+    component: UserComponent
   },
   {
     path: 'product-list',

@@ -1,4 +1,4 @@
-<div [formGroup]='product'>
+<div [formGroup]='product' (keydown)="logChange()">
   <label for="">Title</label>
   <input formControlName="title" type="text" name="" id="">
   <div *ngIf="true"> Title is required! </div>

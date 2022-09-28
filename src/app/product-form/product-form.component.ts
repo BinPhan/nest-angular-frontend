@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { CartCountService } from '../common/service/cart-count.service';
 
 @Component({
   selector: 'app-product-form',
@@ -18,6 +19,8 @@ export class ProductFormComponent implements OnInit {
     child: this.fb.array<FormGroup>([], {
       updateOn: 'change'
     })
+  }, {
+    updateOn: 'change'
   })
   imagePreview: any = ''
 
@@ -25,18 +28,40 @@ export class ProductFormComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private domSan: DomSanitizer,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cartCS: CartCountService
   ) {
 
   }
 
   ngOnInit(): void {
 
+    // this.cartCS.set = 10
+    console.log(this.cartCS.set);
+
+    // this.product.controls.child.push(
+    //   new FormGroup({
+    //     name: new FormControl('sp1')
+    //   })
+    // )
+
+    // this.product.controls.child.push(
+    //   new FormGroup({
+    //     name: new FormControl()
+    //   })
+    // )
+
     this.route.params.subscribe((res: any) =>
       this.http.get(`http://localhost:3000/products/${res.id}`).subscribe((res: any) => {
         this.product.patchValue({
           title: res.title,
           price: res.price,
+        })
+
+        this.product.patchValue({
+          child: [
+            { name: '123123' }
+          ]
         })
 
         this.imagePreview =
@@ -78,6 +103,11 @@ export class ProductFormComponent implements OnInit {
 
   submit() {
     console.log(this.product.value);
+
+  }
+
+  logChange() {
+    console.log(this.product);
 
   }
 

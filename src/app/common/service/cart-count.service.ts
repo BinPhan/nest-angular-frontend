@@ -7,6 +7,8 @@ import { BehaviorSubject, observable, Observable, retry, tap } from 'rxjs';
 })
 export class CartCountService {
 
+  set = 0
+
   totalCart = 0
   constructor(private http: HttpClient) {
     this.http.get('http://localhost:3000/baskets').subscribe((res: any) => {
@@ -14,7 +16,6 @@ export class CartCountService {
       this.changeCartCount(res.length)
     })
   }
-
 
   cartCount = new BehaviorSubject<number>(this.totalCart)
 
