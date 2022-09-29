@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IdService } from '../common/service/id.service';
 
 @Component({
   selector: 'app-user',
@@ -7,9 +8,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
+
+  user: Array<any> = []
+  constructor(private idS: IdService) { }
+
+  modalDisplay = false
 
   ngOnInit(): void {
   }
 
+  openModal() {
+    this.modalDisplay = true
+
+  }
+
+  closeModal(e: any) {
+    this.modalDisplay = e
+  }
+
+  addUser(user: any) {
+    user.id = this.idS.getID();
+    console.log(this.user);
+
+    this.user.push(user)
+  }
+
+  deleteUser(id: any) {
+
+    this.user = this.user.filter(item => { return item.id !== id })
+  }
 }

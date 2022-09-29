@@ -1,2 +1,5 @@
-<app-user-list></app-user-list>
-<app-user-edit></app-user-edit>
+<app-user-list [users]="user" (deleteUser)="deleteUser($event)"></app-user-list>
+<app-user-edit (closeModalP)="closeModal($event)" [modalDisplay]="modalDisplay" (addUser)="addUser($event)">
+</app-user-edit>
+
+<button class="btn btn-success" (click)="openModal()"> Add user </button>

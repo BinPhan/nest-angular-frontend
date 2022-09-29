@@ -8,13 +8,33 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of users" >
+    <tr *ngFor="let item of users; let i = index">
       <th scope="row"> {{item.id}} </th>
-      <td> {{item.name}} </td>
-      <td> {{item.username}} </td>
       <td>
-        <button class="btn btn-primary mr-2"(click)="goToEdit(item.id)"> Edit </button>
-        <button class="btn btn-danger" (click)="delete(item.id)"> Delete </button> </td>
+        <input required *ngIf="item.editing" type="text" [(ngModel)]="item.name" #item.name="ngModel">
+
+        {{item.name.errors}}
+        <div *ngIf="item.name.errors?.['required']">
+          Name is required.
+        </div>
+        <div *ngIf="!item.editing">
+          {{item.name}}
+        </div>
+      </td>
+      <td>
+        <input *ngIf="item.editing" type="text" [(ngModel)]="item.username">
+        <div *ngIf="!item.editing">
+
+          {{item.username}}
+        </div>
+
+      </td>
+      <td>
+        <button [disabled]="item.name.errors?.['required']" class="btn btn-primary mr-2" (click)="goToEdit(i)"> {{
+          item.editing? 'Save' : 'Edit'}}
+        </button>
+        <button *ngIf="!item.editing" class="btn btn-danger" (click)="delete(item.id)"> Delete </button>
+      </td>
     </tr>
 
   </tbody>

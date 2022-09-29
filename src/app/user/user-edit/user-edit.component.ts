@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { confirmPassword } from 'src/app/common/validators/confirm-password.directive';
 
 @Component({
   selector: 'app-user-edit',
@@ -7,7 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserEditComponent implements OnInit {
 
-  modalDisplay = false
+  user = new FormGroup({
+    name: new FormControl('', Validators.required),
+    username: new FormControl(),
+    email: new FormControl('', Validators.email),
+    password: new FormControl('', Validators.required),
+    confirmPassword: new FormControl('', Validators.required),
+    gender: new FormControl("0"),
+    birthday: new FormControl(),
+  }, { validators: confirmPassword })
+
+
+  @Input() modalDisplay: boolean = false
+
+  @Output() closeModalP = new EventEmitter()
+  @Output() addUser = new EventEmitter()
 
   constructor() { }
 
@@ -15,6 +31,17 @@ export class UserEditComponent implements OnInit {
   }
 
   closeModal() {
-    this.modalDisplay = false
+    this.closeModalP.emit(false)
+  }
+
+  submit() {
+    this.user.markAllAsTouched()
+    if (this.user.valid) {
+      this.addUser.emit(this.user.value)
+      this.user.reset({
+        gender: "0"
+      })
+      this.closeModalP.emit(false)
+    }
   }
 }
