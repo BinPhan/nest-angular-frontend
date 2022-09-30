@@ -4,31 +4,57 @@
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Username </th>
+      <th scope="col">Email </th>
+      <th scope="col">Gender </th>
+      <th scope="col">Birthday </th>
       <th scope="col">Action </th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let item of users; let i = index">
       <th scope="row"> {{item.id}} </th>
-      <td>
-        <input required *ngIf="item.editing" type="text" [(ngModel)]="item.name" #item.name="ngModel">
 
+      <td>
+        <input required=true *ngIf="item.editing" type="text" [(ngModel)]="item.name" name="name" #name="ngModel">
         {{item.name.errors}}
-        <div *ngIf="item.name.errors?.['required']">
+
+        <div *ngIf=" item.name.errors?.['required']">
           Name is required.
         </div>
         <div *ngIf="!item.editing">
           {{item.name}}
         </div>
       </td>
+
       <td>
         <input *ngIf="item.editing" type="text" [(ngModel)]="item.username">
         <div *ngIf="!item.editing">
-
           {{item.username}}
         </div>
-
       </td>
+
+      <td>
+        <input *ngIf="item.editing" type="text" [(ngModel)]="item.username">
+        <div *ngIf="!item.editing">
+          {{item.gender === 0 ? "Male" : "Female"}}
+        </div>
+      </td>
+
+      <td>
+        <input *ngIf="item.editing" type="text" [(ngModel)]="item.username">
+        <div *ngIf="!item.editing">
+          {{item.username}}
+        </div>
+      </td>
+
+      <td>
+        <input *ngIf="item.editing" type="text" [(ngModel)]="item.username">
+        <div *ngIf="!item.editing">
+          {{item.username}}
+        </div>
+      </td>
+
+
       <td>
         <button [disabled]="item.name.errors?.['required']" class="btn btn-primary mr-2" (click)="goToEdit(i)"> {{
           item.editing? 'Save' : 'Edit'}}

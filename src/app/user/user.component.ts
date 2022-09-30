@@ -37,4 +37,17 @@ export class UserComponent implements OnInit {
 
     this.user = this.user.filter(item => { return item.id !== id })
   }
+
+  quickAdd() {
+    this.user.push({
+      id: this.idS.getID(),
+      name: "123",
+      username: "123",
+      email: "123@123.com",
+      password: "123",
+      confirmPassword: "123",
+      gender: "1",
+      birthday: "",
+    })
+  }
 }
