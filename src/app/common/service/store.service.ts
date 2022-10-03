@@ -15,7 +15,7 @@ export class StoreService {
 
   public saveUser(user: any): void {
     localStorage.removeItem(USER_KEY);
-    localStorage.setItem(USER_KEY, JSON.stringify(user));
+    localStorage.setItem(USER_KEY, user);
   }
 
   public getUser(): any {

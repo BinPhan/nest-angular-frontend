@@ -21,6 +21,7 @@ import { CartItemComponent } from './common/component/cart-item/cart-item.compon
 import { ProductFormComponent } from './product-form/product-form.component';
 import { UserComponent } from './user/user.component';
 import { UserSearchComponent } from './user/user-search/user-search.component';
+import { PaginationComponent } from './common/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { UserSearchComponent } from './user/user-search/user-search.component';
     ProductFormComponent,
     UserComponent,
     UserSearchComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +46,7 @@ import { UserSearchComponent } from './user/user-search/user-search.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+
   ],
   providers: [
     RegisterService,
@@ -52,7 +55,7 @@ import { UserSearchComponent } from './user/user-search/user-search.component';
       useClass: AuthInterceptor,
       multi: true
     },
-    LoginGuard
+    LoginGuard,
   ],
   bootstrap: [AppComponent]
 })

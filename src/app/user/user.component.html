@@ -2,5 +2,9 @@
 <app-user-edit (closeModalP)="closeModal($event)" [modalDisplay]="modalDisplay" (addUser)="addUser($event)">
 </app-user-edit>
 
+<app-pagination [users]="user"></app-pagination>
+
+<br>
+
 <button class="btn btn-success" (click)="openModal()"> Add user </button>
 <button class="btn btn-success" (click)="quickAdd()"> Quick add </button>

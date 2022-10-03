@@ -13,12 +13,9 @@
   <tbody>
     <tr *ngFor="let item of users; let i = index">
       <th scope="row"> {{item.id}} </th>
-
-      <td>
-        <input required=true *ngIf="item.editing" type="text" [(ngModel)]="item.name" name="name" #name="ngModel">
-        {{item.name.errors}}
-
-        <div *ngIf=" item.name.errors?.['required']">
+      <td [formGroup]="formUsers.at(i)">
+        <input required=true *ngIf="item.editing" type="text" formControlName="name">
+        <div *ngIf="!formUsers.at(i).controls['name'].valid">
           Name is required.
         </div>
         <div *ngIf="!item.editing">
@@ -26,37 +23,43 @@
         </div>
       </td>
 
-      <td>
-        <input *ngIf="item.editing" type="text" [(ngModel)]="item.username">
+      <td [formGroup]="formUsers.at(i)">
+        <input *ngIf="item.editing" type="text" formControlName="username">
         <div *ngIf="!item.editing">
           {{item.username}}
         </div>
       </td>
 
-      <td>
-        <input *ngIf="item.editing" type="text" [(ngModel)]="item.username">
+      <td [formGroup]="formUsers.at(i)">
+        <input *ngIf="item.editing" type="text" formControlName="email">
         <div *ngIf="!item.editing">
-          {{item.gender === 0 ? "Male" : "Female"}}
+          {{item.email}}
         </div>
       </td>
 
-      <td>
-        <input *ngIf="item.editing" type="text" [(ngModel)]="item.username">
+      <td [formGroup]="formUsers.at(i)">
+        <select *ngIf="item.editing" formControlName="gender">
+          <option value="0">Male</option>
+          <option value="1">Female</option>
+        </select>
         <div *ngIf="!item.editing">
-          {{item.username}}
-        </div>
-      </td>
-
-      <td>
-        <input *ngIf="item.editing" type="text" [(ngModel)]="item.username">
-        <div *ngIf="!item.editing">
-          {{item.username}}
+          {{item.gender === "0" ? "Male" : "Female"}}
         </div>
       </td>
 
 
-      <td>
-        <button [disabled]="item.name.errors?.['required']" class="btn btn-primary mr-2" (click)="goToEdit(i)"> {{
+      <td [formGroup]="formUsers.at(i)">
+
+        <input *ngIf="item.editing" type="date" formControlName="birthday">
+        <div *ngIf="!item.editing">
+          {{item.birthday}}
+        </div>
+      </td>
+
+
+      <td [formGroup]="formUsers.at(i)">
+        <button [disabled]="item.name.errors?.['required']" class="btn btn-primary mr-2" (click)="goToEdit(i, item.id)">
+          {{
           item.editing? 'Save' : 'Edit'}}
         </button>
         <button *ngIf="!item.editing" class="btn btn-danger" (click)="delete(item.id)"> Delete </button>

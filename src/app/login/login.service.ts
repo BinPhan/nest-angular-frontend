@@ -10,9 +10,9 @@ export class LoginService {
   constructor(private http: HttpClient, private storeService: StoreService) { }
 
   login(body: Object) {
-    this.http.post('http://localhost:3000/auth/login', body).subscribe((res: any) => {
+    this.http.post('http://localhost:3000/login', body).subscribe((res: any) => {
 
-      this.storeService.saveUser(res)
+      this.storeService.saveUser(res.token)
     })
   }
 }

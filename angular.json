@@ -30,7 +30,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "aws-sdk/clients/s3"
+            ]
           },
           "configurations": {
             "production": {

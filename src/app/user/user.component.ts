@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { IdService } from '../common/service/id.service';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-user',
@@ -10,11 +12,31 @@ export class UserComponent implements OnInit {
 
 
   user: Array<any> = []
-  constructor(private idS: IdService) { }
+  constructor(
+    private userService: UserService,
+    private fb: FormBuilder
+  ) { }
+
+  formUsers = this.fb.array<FormGroup>([])
 
   modalDisplay = false
 
   ngOnInit(): void {
+    this.userService.getListUser().subscribe((res: any) => {
+      this.user = res.customers
+
+      res.customers.forEach((element: any) => {
+        this.formUsers.push(
+          new FormGroup({
+            name: new FormControl(element.name),
+            username: new FormControl(element.username),
+            email: new FormControl(element.email),
+            gender: new FormControl(element.gender),
+            birthday: new FormControl(element.birthday),
+          })
+        )
+      });
+    })
   }
 
   openModal() {
@@ -27,8 +49,6 @@ export class UserComponent implements OnInit {
   }
 
   addUser(user: any) {
-    user.id = this.idS.getID();
-    console.log(this.user);
 
     this.user.push(user)
   }
@@ -40,14 +60,14 @@ export class UserComponent implements OnInit {
 
   quickAdd() {
     this.user.push({
-      id: this.idS.getID(),
+      // id: this.idS.getID(),
       name: "123",
       username: "123",
       email: "123@123.com",
       password: "123",
       confirmPassword: "123",
       gender: "1",
-      birthday: "",
+      birthday: "2022-09-29",
     })
   }
 }

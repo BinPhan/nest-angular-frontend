@@ -17,7 +17,9 @@
 /***************************************************************************************************
  * BROWSER POLYFILLS
  */
-
+if (typeof (window as any).global === 'undefined') {
+  (window as any).global = window;
+}
 /**
  * By default, zone.js will patch all possible macroTask and DomEvents
  * user can disable parts of macroTask/DomEvents patch by setting following flags

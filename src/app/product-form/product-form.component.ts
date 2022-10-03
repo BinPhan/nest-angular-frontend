@@ -1,16 +1,18 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { CartCountService } from '../common/service/cart-count.service';
+import * as AWS from 'aws-sdk/global';
+import * as S3 from 'aws-sdk/clients/s3';
 
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.scss']
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit, OnChanges {
 
   product = this.fb.group({
     title: new FormControl('', Validators.required),
@@ -20,7 +22,7 @@ export class ProductFormComponent implements OnInit {
       updateOn: 'change'
     })
   }, {
-    updateOn: 'change'
+    updateOn: 'blur'
   })
   imagePreview: any = ''
 
@@ -34,22 +36,12 @@ export class ProductFormComponent implements OnInit {
 
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+
+  }
+
   ngOnInit(): void {
-
-    // this.cartCS.set = 10
-    console.log(this.cartCS.set);
-
-    // this.product.controls.child.push(
-    //   new FormGroup({
-    //     name: new FormControl('sp1')
-    //   })
-    // )
-
-    // this.product.controls.child.push(
-    //   new FormGroup({
-    //     name: new FormControl()
-    //   })
-    // )
 
     this.route.params.subscribe((res: any) =>
       this.http.get(`http://localhost:3000/products/${res.id}`).subscribe((res: any) => {
@@ -58,17 +50,7 @@ export class ProductFormComponent implements OnInit {
           price: res.price,
         })
 
-        this.product.patchValue({
-          child: [
-            { name: '123123' }
-          ]
-        })
-
-        this.imagePreview =
-
-          // this. domSan.bypassSecurityTrustUrl(
-          res.image
-        // )
+        this.imagePreview = res.image
       }
 
       ))
@@ -80,17 +62,13 @@ export class ProductFormComponent implements OnInit {
     console.log(URL.createObjectURL(event.target.files[0]));
 
     reader.readAsDataURL(event.target.files[0])
-    // this.imagePreview = URL.createObjectURL(event.target.files[0])
+
+    const bucket = new S3
+    console.log(bucket);
+
   }
 
   addInput() {
-    // console.log(this.child);
-
-    // this.child.push(
-    //   new FormControl()
-    // )
-
-
     this.product.controls.child.push(
       new FormGroup({
         name: new FormControl()

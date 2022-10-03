@@ -10,12 +10,12 @@ import { LoginService } from './login.service';
 export class LoginComponent implements OnInit {
 
   credentials = {
-    userName: '',
+    email: '',
     password: ''
   }
 
   loginForm = new FormGroup({
-    userName: new FormControl(this.credentials.userName,
+    email: new FormControl(this.credentials.email,
       Validators.required,
     ),
     password: new FormControl(this.credentials.password,
