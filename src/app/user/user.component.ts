@@ -22,9 +22,13 @@ export class UserComponent implements OnInit {
   modalDisplay = false
 
   ngOnInit(): void {
+    this.fetch()
+  }
+
+  fetch() {
     this.userService.getListUser().subscribe((res: any) => {
       this.user = res.customers
-
+      this.formUsers.clear()
       res.customers.forEach((element: any) => {
         this.formUsers.push(
           new FormGroup({
@@ -50,6 +54,13 @@ export class UserComponent implements OnInit {
 
   addUser(user: any) {
 
+    this.userService.addUser(user).subscribe({
+      next: (res) => this.fetch(),
+      error: (error) => {
+        console.warn(error);
+
+      }
+    })
     this.user.push(user)
   }
 

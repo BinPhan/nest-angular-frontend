@@ -17,4 +17,12 @@ export class UserService {
   editUser(id: number, body: any) {
     return this.http.put('http://localhost:3000/customer-informations/' + id, { body })
   }
+
+  addUser(body: any) {
+    delete body.confirmPassword
+    // body.image = {
+
+    // }
+    return this.http.post('http://localhost:3000/customer-informations/', body)
+  }
 }

@@ -17,6 +17,7 @@ export class UserEditComponent implements OnInit {
     confirmPassword: new FormControl('', Validators.required),
     gender: new FormControl("0"),
     birthday: new FormControl(),
+    phone: new FormControl()
   }, { validators: confirmPassword })
 
 
@@ -38,9 +39,9 @@ export class UserEditComponent implements OnInit {
     this.user.markAllAsTouched()
     if (this.user.valid) {
       this.addUser.emit(this.user.value)
-      this.user.reset({
-        gender: "0"
-      })
+      // this.user.reset({
+      //   gender: "0"
+      // })
       this.closeModalP.emit(false)
     }
   }
