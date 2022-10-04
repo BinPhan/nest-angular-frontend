@@ -17,9 +17,13 @@ export class UserEditComponent implements OnInit {
     confirmPassword: new FormControl('', Validators.required),
     gender: new FormControl("0"),
     birthday: new FormControl(),
-    phone: new FormControl()
+    phone: new FormControl(),
+    avatar: new FormControl()
   }, { validators: confirmPassword })
 
+  imagePreview: any
+
+  fileUpload: any
 
   @Input() modalDisplay: boolean = false
 
@@ -37,12 +41,22 @@ export class UserEditComponent implements OnInit {
 
   submit() {
     this.user.markAllAsTouched()
+    console.log(this.user);
+
     if (this.user.valid) {
-      this.addUser.emit(this.user.value)
+      this.addUser.emit({ file: this.fileUpload, ...this.user.value })
       // this.user.reset({
       //   gender: "0"
       // })
       this.closeModalP.emit(false)
     }
   }
+
+  changeImage(event: any) {
+    const reader = new FileReader()
+    reader.onload = e => this.imagePreview = reader.result
+    reader.readAsDataURL(event.target.files[0])
+    this.fileUpload = event.target.files[0]
+  }
+
 }

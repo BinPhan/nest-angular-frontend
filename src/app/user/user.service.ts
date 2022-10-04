@@ -20,9 +20,21 @@ export class UserService {
 
   addUser(body: any) {
     delete body.confirmPassword
-    // body.image = {
+    let fData = new FormData()
+    fData.append('name', body.name)
+    fData.append('username', body.username)
+    fData.append('email', body.email)
+    fData.append('password', body.password)
+    fData.append('gender', body.gender)
+    fData.append('birthday', body.birthday)
+    fData.append('phone', body.phone)
+    fData.append('avatar', body.file)
+    console.log(fData);
 
-    // }
-    return this.http.post('http://localhost:3000/customer-informations/', body)
+    return this.http.post('http://localhost:3000/customer-informations/', fData)
+  }
+
+  deleteUser(id: number) {
+    return this.http.delete('http://localhost:3000/customer-informations/' + id)
   }
 }

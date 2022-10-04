@@ -11,4 +11,8 @@ export class UserListService {
   getListUser() {
     return this.http.get('http://localhost:3000/user')
   }
+
+  editUser(id: number, body: any) {
+    return this.http.put('http://localhost:3000/customer-informations/' + id, body)
+  }
 }

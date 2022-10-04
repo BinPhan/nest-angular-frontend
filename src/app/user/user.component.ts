@@ -26,22 +26,27 @@ export class UserComponent implements OnInit {
   }
 
   fetch() {
-    this.userService.getListUser().subscribe((res: any) => {
-      this.user = res.customers
-      this.formUsers.clear()
-      res.customers.forEach((element: any) => {
-        this.formUsers.push(
-          new FormGroup({
-            name: new FormControl(element.name),
-            username: new FormControl(element.username),
-            email: new FormControl(element.email),
-            gender: new FormControl(element.gender),
-            birthday: new FormControl(element.birthday),
-          })
-        )
-      });
+    this.userService.getListUser().pipe().subscribe({
+      next: (res: any) => {
+        this.user = res.customers
+        this.formUsers.clear()
+        res.customers.forEach((element: any) => {
+          this.formUsers.push(
+            new FormGroup({
+              name: new FormControl(element.name),
+              username: new FormControl(element.username),
+              email: new FormControl(element.email),
+              gender: new FormControl(element.gender),
+              birthday: new FormControl(element.birthday),
+            })
+          )
+        });
+      },
+      error: (error) => { },
+      complete: () => { },
     })
   }
+
 
   openModal() {
     this.modalDisplay = true
@@ -53,20 +58,20 @@ export class UserComponent implements OnInit {
   }
 
   addUser(user: any) {
-
     this.userService.addUser(user).subscribe({
-      next: (res) => this.fetch(),
+      next: (res) => {
+        console.log(res);
+
+        this.fetch()
+      },
       error: (error) => {
         console.warn(error);
-
       }
     })
-    this.user.push(user)
   }
 
   deleteUser(id: any) {
-
-    this.user = this.user.filter(item => { return item.id !== id })
+    this.userService.deleteUser(id).subscribe(res => this.fetch())
   }
 
   quickAdd() {

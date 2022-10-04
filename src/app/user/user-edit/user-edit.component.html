@@ -84,6 +84,12 @@
             <label class="col-3"> Phone </label>
             <input class="col-8" type="text" formControlName="phone">
           </div>
+
+          <div class="row">
+            <label class="col-3"> Avatar </label>
+            <input class="col-8" type="file" formControlName="avatar" (change)="changeImage($event)">
+            <img [src]="imagePreview" alt="" srcset="">
+          </div>
         </form>
 
 

@@ -12,6 +12,8 @@ export class UserListComponent implements OnInit, OnChanges {
   @Input() users: Array<any> = []
 
   @Output() deleteUser = new EventEmitter()
+  @Output() fetch = new EventEmitter()
+
   constructor(
     private userListService: UserListService,
     private fb: FormBuilder
@@ -29,7 +31,6 @@ export class UserListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     changes['users'].currentValue.forEach((element: any) => {
       this.formUsers.push(
         new FormGroup({
@@ -38,6 +39,7 @@ export class UserListComponent implements OnInit, OnChanges {
           email: new FormControl(element.email),
           gender: new FormControl(element.gender),
           birthday: new FormControl(element.birthday),
+          phone: new FormControl(element.phone),
         })
       )
     });
@@ -54,6 +56,14 @@ export class UserListComponent implements OnInit, OnChanges {
       console.log(realID);
 
       console.log(this.users[id]);
+
+      this.userListService.editUser(realID, this.formUsers.at(id).value).subscribe(
+        {
+          next: (res) => {
+            this.fetch.emit()
+          }
+        }
+      )
     }
   }
 

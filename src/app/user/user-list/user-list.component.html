@@ -7,6 +7,7 @@
       <th scope="col">Email </th>
       <th scope="col">Gender </th>
       <th scope="col">Birthday </th>
+      <th scope="col">Phone </th>
       <th scope="col">Action </th>
     </tr>
   </thead>
@@ -56,6 +57,20 @@
         </div>
       </td>
 
+      <!-- <td [formGroup]="formUsers.at(i)">
+
+        <input *ngIf="item.editing" type="file" formControlName="image">
+        <div *ngIf="!item.editing">
+          {{item.avatar}}
+        </div>
+      </td> -->
+
+      <td [formGroup]="formUsers.at(i)">
+        <input *ngIf="item.editing" type="text" formControlName="phone">
+        <div *ngIf="!item.editing">
+          {{item.phone}}
+        </div>
+      </td>
 
       <td [formGroup]="formUsers.at(i)">
         <button [disabled]="item.name.errors?.['required']" class="btn btn-primary mr-2" (click)="goToEdit(i, item.id)">
