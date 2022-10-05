@@ -4,9 +4,6 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { CartCountService } from '../common/service/cart-count.service';
-import * as AWS from 'aws-sdk/global';
-import * as S3 from 'aws-sdk/clients/s3';
-
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
@@ -62,9 +59,6 @@ export class ProductFormComponent implements OnInit, OnChanges {
     console.log(URL.createObjectURL(event.target.files[0]));
 
     reader.readAsDataURL(event.target.files[0])
-
-    const bucket = new S3
-    console.log(bucket);
 
   }
 
