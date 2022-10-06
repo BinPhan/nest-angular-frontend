@@ -21,7 +21,7 @@ export class StoreService {
   public getUser(): any {
     const user = localStorage.getItem(USER_KEY);
     if (user) {
-      return JSON.parse(user);
+      return user;
     }
 
     return {};
@@ -40,6 +40,6 @@ export class StoreService {
    * getAccessToken
    */
   public getAccessToken(): string {
-    return this.getUser().access_token
+    return this.getUser()
   }
 }

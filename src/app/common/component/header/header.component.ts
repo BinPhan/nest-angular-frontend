@@ -21,11 +21,9 @@ export class HeaderComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
 
     this.cartCountService.set = 12
-    console.log(this.cartCountService.set, this.cartCountService.set)
 
 
     this.cartCountService.cartCount.subscribe((res: any) => {
-      console.log(res);
 
       this.cartCount = res
     })

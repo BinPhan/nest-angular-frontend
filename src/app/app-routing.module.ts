@@ -26,6 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'user',
+    canActivate: [LoginGuard],
     component: UserComponent
   },
   {
