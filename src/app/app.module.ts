@@ -14,14 +14,10 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { LoginGuard } from './auth/login.guard';
 import { HeaderComponent } from './common/component/header/header.component';
-import { ProductListComponent } from './product-list/product-list.component';
-import { ProductItemComponent } from './common/component/product-item/product-item.component';
-import { CartComponent } from './cart/cart.component';
-import { CartItemComponent } from './common/component/cart-item/cart-item.component';
-import { ProductFormComponent } from './product-form/product-form.component';
 import { UserComponent } from './user/user.component';
 import { UserSearchComponent } from './user/user-search/user-search.component';
 import { PaginationComponent } from './common/pagination/pagination.component';
+import { ModalComponent } from './common/component/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -31,14 +27,10 @@ import { PaginationComponent } from './common/pagination/pagination.component';
     UserListComponent,
     UserEditComponent,
     HeaderComponent,
-    ProductListComponent,
-    ProductItemComponent,
-    CartComponent,
-    CartItemComponent,
-    ProductFormComponent,
     UserComponent,
     UserSearchComponent,
     PaginationComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

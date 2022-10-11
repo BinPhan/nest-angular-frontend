@@ -1,10 +1,8 @@
-<app-user-list [users]="user" (deleteUser)="deleteUser($event)" (fetch)="fetch()"></app-user-list>
-<app-user-edit (closeModalP)="closeModal($event)" [modalDisplay]="modalDisplay" (addUser)="addUser($event)">
-</app-user-edit>
+<app-user-list [users]="user" (fetch)="fetch({})"></app-user-list>
 
-<app-pagination [users]="user"></app-pagination>
+<app-pagination (changePage)="fetch($event)" [data]="data"></app-pagination>
 
 <br>
 
-<button class="btn btn-success" (click)="openModal()"> Add user </button>
-<button class="btn btn-success" (click)="quickAdd()"> Quick add </button>
+<app-user-edit (fetch)="fetch({})">
+</app-user-edit>

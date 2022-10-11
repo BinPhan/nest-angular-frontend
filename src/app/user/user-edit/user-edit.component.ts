@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { confirmPassword } from 'src/app/common/validators/confirm-password.directive';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -25,18 +26,19 @@ export class UserEditComponent implements OnInit {
 
   fileUpload: any
 
-  @Input() modalDisplay: boolean = false
+  @Output() fetch = new EventEmitter()
 
-  @Output() closeModalP = new EventEmitter()
-  @Output() addUser = new EventEmitter()
+  modalDisplay: boolean = false
 
-  constructor() { }
+  constructor(
+    private userService: UserService,
+  ) { }
 
   ngOnInit(): void {
   }
 
   closeModal() {
-    this.closeModalP.emit(false)
+    this.modalDisplay = false
   }
 
   submit() {
@@ -44,11 +46,11 @@ export class UserEditComponent implements OnInit {
     console.log(this.user);
 
     if (this.user.valid) {
-      this.addUser.emit({ file: this.fileUpload, ...this.user.value })
+      this.addUser({ file: this.fileUpload, ...this.user.value })
       // this.user.reset({
       //   gender: "0"
       // })
-      this.closeModalP.emit(false)
+      this.modalDisplay = false
     }
   }
 
@@ -57,6 +59,21 @@ export class UserEditComponent implements OnInit {
     reader.onload = e => this.imagePreview = reader.result
     reader.readAsDataURL(event.target.files[0])
     this.fileUpload = event.target.files[0]
+  }
+
+  openModal() {
+    this.modalDisplay = true
+  }
+
+  addUser(user: any) {
+    this.userService.addUser(user).subscribe({
+      next: (res) => {
+        this.fetch.emit()
+      },
+      error: (error) => {
+        console.warn(error);
+      }
+    })
   }
 
 }

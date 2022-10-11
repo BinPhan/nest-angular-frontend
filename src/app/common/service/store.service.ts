@@ -24,7 +24,7 @@ export class StoreService {
       return user;
     }
 
-    return {};
+    return false;
   }
 
   public isLoggedIn(): boolean {

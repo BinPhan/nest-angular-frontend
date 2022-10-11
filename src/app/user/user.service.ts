@@ -10,8 +10,15 @@ export class UserService {
 
   }
 
-  getListUser() {
-    return this.http.get('http://localhost:3000/customer-informations')
+  getListUser(query?: any) {
+    if (!query || !query?.page) {
+      query = { page: 1 }
+    }
+    if (!query.limit) {
+      query.limit = 5
+    }
+
+    return this.http.get('http://localhost:3000/customer-informations?page=' + query.page + '&size=' + query.limit)
   }
 
   editUser(id: number, body: any) {

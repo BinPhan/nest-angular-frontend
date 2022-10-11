@@ -1,103 +1,88 @@
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{display: modalDisplay ? 'block':'none'}">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+<button class="btn btn-success color-orange" (click)="openModal()"> Add user </button>
 
+<app-modal [modalDisplay]="modalDisplay" (cancelModal)="closeModal()" (confirmModal)="submit()">
 
-        <form [formGroup]="user">
+  <form [formGroup]="user">
 
-          <div class="row">
-            <label class="col-3"> Name </label>
-            <input class="col-8" type="text" formControlName="name">
-          </div>
-
-          <div class="row">
-            <div class="col-3"> &nbsp; </div>
-            <p class="text-danger" *ngIf="!user.controls.name.valid && user.controls.name.touched">
-              Name is required
-            </p>
-          </div>
-
-          <div class="row">
-            <label class="col-3"> Username </label>
-            <input class="col-8" type="text" formControlName="username">
-          </div>
-
-          <div class="row">
-            <label class="col-3"> Email </label>
-            <input class="col-8" type="text" formControlName="email">
-          </div>
-
-          <div class="row">
-            <div class="col-3"> &nbsp; </div>
-            <p class="text-danger" *ngIf="!user.controls.email.valid && user.controls.email.touched">
-              Malformed email
-            </p>
-          </div>
-
-          <div class="row">
-            <label class="col-3"> Password </label>
-            <input class="col-8" type="password" formControlName="password">
-          </div>
-
-          <div class="row">
-            <div class="col-3"> &nbsp; </div>
-            <p class="text-danger" *ngIf="!user.controls.password.valid && user.controls.password.touched">
-              Password is required
-            </p>
-          </div>
-
-
-          <div class="row">
-            <label class="col-3"> Confirm password </label>
-            <input class="col-8" type="password" formControlName="confirmPassword">
-          </div>
-
-
-          <div class="row">
-            <div class="col-3"> &nbsp; </div>
-            <p class="text-danger"
-              *ngIf="user.errors?.['confirmPassword'] && user.controls.password.touched && user.controls.confirmPassword.touched">
-              Password is not matched
-            </p>
-          </div>
-
-
-          <div class="row">
-            <label class="col-3"> Gender </label>
-            Male <input class="col-3" type="radio" formControlName="gender" value="0">
-            Female <input class="col-3" type="radio" formControlName="gender" value="1">
-          </div>
-
-          <div class="row">
-            <label class="col-3"> Birthday </label>
-            <input class="col-8" type="date" formControlName="birthday">
-          </div>
-
-          <div class="row">
-            <label class="col-3"> Phone </label>
-            <input class="col-8" type="text" formControlName="phone">
-          </div>
-
-          <div class="row">
-            <label class="col-3"> Avatar </label>
-            <input class="col-8" type="file" formControlName="avatar" (change)="changeImage($event)">
-            <img [src]="imagePreview" alt="" srcset="">
-          </div>
-        </form>
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="submit()"> Add </button>
-      </div>
+    <div class="row">
+      <label class="col-3"> Name </label>
+      <input class="col-8" type="text" formControlName="name">
     </div>
-  </div>
-</div>
+
+    <div class="row">
+      <div class="col-3"> &nbsp; </div>
+      <p class="text-danger" *ngIf="!user.controls.name.valid && user.controls.name.touched">
+        Name is required
+      </p>
+    </div>
+
+    <div class="row">
+      <label class="col-3"> Username </label>
+      <input class="col-8" type="text" formControlName="username">
+    </div>
+
+    <div class="row">
+      <label class="col-3"> Email </label>
+      <input class="col-8" type="text" formControlName="email">
+    </div>
+
+    <div class="row">
+      <div class="col-3"> &nbsp; </div>
+      <p class="text-danger" *ngIf="!user.controls.email.valid && user.controls.email.touched">
+        Malformed email
+      </p>
+    </div>
+
+    <div class="row">
+      <label class="col-3"> Password </label>
+      <input class="col-8" type="password" formControlName="password">
+    </div>
+
+    <div class="row">
+      <div class="col-3"> &nbsp; </div>
+      <p class="text-danger" *ngIf="!user.controls.password.valid && user.controls.password.touched">
+        Password is required
+      </p>
+    </div>
+
+
+    <div class="row">
+      <label class="col-3"> Confirm password </label>
+      <input class="col-8" type="password" formControlName="confirmPassword">
+    </div>
+
+
+    <div class="row">
+      <div class="col-3"> &nbsp; </div>
+      <p class="text-danger"
+        *ngIf="user.errors?.['confirmPassword'] && user.controls.password.touched && user.controls.confirmPassword.touched">
+        Password is not matched
+      </p>
+    </div>
+
+
+    <div class="row">
+      <label class="col-3"> Gender </label>
+      Male <input class="col-3" type="radio" formControlName="gender" value="0">
+      Female <input class="col-3" type="radio" formControlName="gender" value="1">
+    </div>
+
+    <div class="row">
+      <label class="col-3"> Birthday </label>
+      <input class="col-8" type="date" formControlName="birthday">
+    </div>
+
+    <div class="row">
+      <label class="col-3"> Phone </label>
+      <input class="col-8" type="text" formControlName="phone">
+    </div>
+
+    <div class="row">
+      <label class="col-3"> Avatar </label>
+      <input class="col-8" type="file" formControlName="avatar" (change)="changeImage($event)">
+      <img [src]="imagePreview" alt="" srcset="">
+    </div>
+  </form>
+
+
+</app-modal>

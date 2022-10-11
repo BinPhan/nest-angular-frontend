@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { IdService } from '../common/service/id.service';
+import { of } from 'rxjs';
 import { UserService } from './user.service';
 
 @Component({
@@ -12,12 +12,12 @@ export class UserComponent implements OnInit {
 
 
   user: Array<any> = []
+  data: any = {}
   constructor(
     private userService: UserService,
     private fb: FormBuilder
   ) { }
 
-  formUsers = this.fb.array<FormGroup>([])
 
   modalDisplay = false
 
@@ -25,32 +25,15 @@ export class UserComponent implements OnInit {
     this.fetch()
   }
 
-  fetch() {
-    this.userService.getListUser().pipe().subscribe({
+  fetch(query?: any) {
+    this.userService.getListUser(query).pipe().subscribe({
       next: (res: any) => {
-        this.user = res.customers
-        this.formUsers.clear()
-        res.customers.forEach((element: any) => {
-          this.formUsers.push(
-            new FormGroup({
-              name: new FormControl(element.name),
-              username: new FormControl(element.username),
-              email: new FormControl(element.email),
-              gender: new FormControl(element.gender),
-              birthday: new FormControl(element.birthday),
-            })
-          )
-        });
+        this.user = res.customers.data
+        this.data = res.customers
       },
       error: (error) => { },
       complete: () => { },
     })
-  }
-
-
-  openModal() {
-    this.modalDisplay = true
-
   }
 
   closeModal(e: any) {
@@ -60,8 +43,6 @@ export class UserComponent implements OnInit {
   addUser(user: any) {
     this.userService.addUser(user).subscribe({
       next: (res) => {
-        console.log(res);
-
         this.fetch()
       },
       error: (error) => {
@@ -70,20 +51,5 @@ export class UserComponent implements OnInit {
     })
   }
 
-  deleteUser(id: any) {
-    this.userService.deleteUser(id).subscribe(res => this.fetch())
-  }
 
-  quickAdd() {
-    this.user.push({
-      // id: this.idS.getID(),
-      name: "123",
-      username: "123",
-      email: "123@123.com",
-      password: "123",
-      confirmPassword: "123",
-      gender: "1",
-      birthday: "2022-09-29",
-    })
-  }
 }

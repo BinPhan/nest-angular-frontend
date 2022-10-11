@@ -1,9 +1,28 @@
-Total: {{users.length}}
+<div class="row">
 
-<button class="btn">
-  < </button>
+  <div class="col-1">
 
+    Total: {{data.total}}
+  </div>
+  <button (click)="moveTo(data.current_page - 1)" class="btn">
+    Back </button>
 
+  <button (click)="moveTo(i+1)" *ngFor="let item of totalNumberOfPages; let i = index" class="btn mr-1 ml-1 active"
+    [ngClass]="{'btn-primary' : i+1 == data.current_page}">
 
-    <button class="btn">
-      > </button>
+    {{i+1}}
+  </button>
+
+  <button (click)="moveTo(data.current_page + 1)" class="btn">
+    Next </button>
+
+  <div class="col-1">
+
+    Result per page
+  </div>
+  <select class="form-control col-1" (change)="changeLimit($event)">
+    <option>5</option>
+    <option>10</option>
+    <option>15</option>
+  </select>
+</div>

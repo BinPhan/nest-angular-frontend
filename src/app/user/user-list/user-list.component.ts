@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { of } from 'rxjs';
+import { UserService } from '../user.service';
 import { UserListService } from './user-list.service';
 
 @Component({
@@ -16,25 +18,26 @@ export class UserListComponent implements OnInit, OnChanges {
 
   constructor(
     private userListService: UserListService,
+    private userService: UserService,
     private fb: FormBuilder
   ) {
   }
 
-  userForm = new FormArray(this.users)
+  modalDisplay: boolean = false
+
   formUsers = this.fb.array<FormGroup>([])
 
-  ngOnInit(): void {
+  deleteID: number = 0
 
-
-
-    // this.userListService.getListUser().subscribe((res: any) => this.users = res)
-  }
+  ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
+
+    this.formUsers = this.fb.array<FormGroup>([])
     changes['users'].currentValue.forEach((element: any) => {
       this.formUsers.push(
         new FormGroup({
-          name: new FormControl(element.name, Validators.required),
+          name: new FormControl(element.name),
           username: new FormControl(element.username),
           email: new FormControl(element.email),
           gender: new FormControl(element.gender),
@@ -44,23 +47,42 @@ export class UserListComponent implements OnInit, OnChanges {
       )
     });
 
-    console.log(this.formUsers.at(1));
   }
 
   goToEdit(id: number, realID: number) {
+    if (this.formUsers.valid) {
+
+      this.users[id].editing = !this.users[id].editing
+
+      if (!this.users[id].editing) {
+
+        this.userListService.editUser(realID, this.formUsers.at(id).value).subscribe(
+          {
+            next: (res) => {
+              this.fetch.emit()
+            },
+            error: (error) => {
+              console.warn(error);
+
+            }
+          }
+        )
+      }
+    }
+  }
+
+  save(id: number, realID: number) {
     this.users[id].editing = !this.users[id].editing
 
     if (!this.users[id].editing) {
-      console.log(this.formUsers.value);
-
-      console.log(realID);
-
-      console.log(this.users[id]);
 
       this.userListService.editUser(realID, this.formUsers.at(id).value).subscribe(
         {
           next: (res) => {
             this.fetch.emit()
+          },
+          error: (error) => {
+            console.warn(error);
           }
         }
       )
@@ -68,7 +90,21 @@ export class UserListComponent implements OnInit, OnChanges {
   }
 
   delete(id: number) {
-    this.deleteUser.emit(id)
+    this.modalDisplay = true
+    this.deleteID = id
+  }
+
+  confirmDelete(deleteID: number) {
+    this.userService.deleteUser(deleteID).subscribe(res => {
+      this.fetch.emit({})
+      this.modalDisplay = false
+    }
+    )
+  }
+
+
+  closeModal() {
+    this.modalDisplay = false
   }
 
 }

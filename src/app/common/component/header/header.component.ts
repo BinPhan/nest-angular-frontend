@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../base-component';
 import { StoreService } from '../../service/store.service';
-import { CartCountService } from '../../service/cart-count.service';
 
 @Component({
   selector: 'app-header',
@@ -10,24 +9,11 @@ import { CartCountService } from '../../service/cart-count.service';
 })
 export class HeaderComponent extends BaseComponent implements OnInit {
 
-  cartCount: Number = 0
-
-  // set = this.cartCountService.set
-
-  constructor(private store: StoreService, private cartCountService: CartCountService) {
+  constructor(private store: StoreService) {
     super(store)
   }
 
   ngOnInit(): void {
-
-    this.cartCountService.set = 12
-
-
-    this.cartCountService.cartCount.subscribe((res: any) => {
-
-      this.cartCount = res
-    })
-
   }
 
 }

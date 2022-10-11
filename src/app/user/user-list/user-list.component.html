@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th scope="col">#</th>
+      <th scope="col">Avatar</th>
       <th scope="col">Name</th>
       <th scope="col">Username </th>
       <th scope="col">Email </th>
@@ -14,6 +15,10 @@
   <tbody>
     <tr *ngFor="let item of users; let i = index">
       <th scope="row"> {{item.id}} </th>
+
+      <td>
+        <img [src]="'http://localhost:3000/' + item.avatar" alt="" width="100">
+      </td>
       <td [formGroup]="formUsers.at(i)">
         <input required=true *ngIf="item.editing" type="text" formControlName="name">
         <div *ngIf="!formUsers.at(i).controls['name'].valid">
@@ -74,8 +79,7 @@
 
       <td [formGroup]="formUsers.at(i)">
         <button [disabled]="item.name.errors?.['required']" class="btn btn-primary mr-2" (click)="goToEdit(i, item.id)">
-          {{
-          item.editing? 'Save' : 'Edit'}}
+          {{item.editing? 'Save' : 'Edit'}}
         </button>
         <button *ngIf="!item.editing" class="btn btn-danger" (click)="delete(item.id)"> Delete </button>
       </td>
@@ -83,3 +87,8 @@
 
   </tbody>
 </table>
+
+<app-modal (cancelModal)="closeModal()" (confirmModal)="confirmDelete(deleteID)" [modalDisplay]="modalDisplay">
+  Do you want to delete user with ID: {{deleteID}}
+
+</app-modal>

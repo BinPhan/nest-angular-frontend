@@ -70,11 +70,11 @@ describe('LoginGuard', () => {
     mockStoreService.getUser.and.returnValue({
       roles: ["ADMIN"]
     })
-    mockStoreService.getAccessToken.and.returnValue(true)
+    mockStoreService.getAccessToken.and.returnValue('$2321')
 
     const canActivate = guard.canActivate(dummyRoute, fakeRouterState('/login'));
 
-    expect(canActivate)
+    expect(canActivate).toBeTrue()
   })
 
   it('Has user but no access token', () => {
