@@ -18,6 +18,8 @@ import { UserComponent } from './user/user.component';
 import { UserSearchComponent } from './user/user-search/user-search.component';
 import { PaginationComponent } from './common/pagination/pagination.component';
 import { ModalComponent } from './common/component/modal/modal.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { ModalComponent } from './common/component/modal/modal.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [
     RegisterService,

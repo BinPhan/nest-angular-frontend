@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { confirmPassword } from 'src/app/common/validators/confirm-password.directive';
 import { UserService } from '../user.service';
 
@@ -32,6 +33,7 @@ export class UserEditComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private toast: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -47,10 +49,6 @@ export class UserEditComponent implements OnInit {
 
     if (this.user.valid) {
       this.addUser({ file: this.fileUpload, ...this.user.value })
-      // this.user.reset({
-      //   gender: "0"
-      // })
-      this.modalDisplay = false
     }
   }
 
@@ -68,10 +66,15 @@ export class UserEditComponent implements OnInit {
   addUser(user: any) {
     this.userService.addUser(user).subscribe({
       next: (res) => {
+
+        this.modalDisplay = false
+        this.toast.success('User added successfully', 'Nice job')
         this.fetch.emit()
       },
       error: (error) => {
-        console.warn(error);
+        const err = error.error.error.details[0].message
+        console.warn(error.error.error.details[0].message);
+        this.toast.error(err, 'SOMETHING BAD HAPPENED')
       }
     })
   }
